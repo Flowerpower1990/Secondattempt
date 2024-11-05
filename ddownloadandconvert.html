@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload and Convert to App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        button { padding: 10px 15px; font-size: 16px; cursor: pointer; }
+        #downloadSection { display: none; }
+    </style>
+</head>
+<body>
+
+    <h1>Upload Your File to Convert to App</h1>
+    <input type="file" id="fileInput" accept=".txt,.jpg,.png,.pdf,.zip,.html,.java,." required>
+    <button onclick="uploadFile()">Upload File</button>
+
+    <div id="downloadSection">
+        <h2>Download Your Converted App</h2>
+        <a id="downloadLink"></a>
+        <button onclick="downloadApp()">Download as MyApp.custom</button>
+    </div>
+
+    <script>
+        let uploadedFile;
+
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length === 0) {
+                alert('Please select a file to upload.');
+                return;
+            }
+
+            uploadedFile = fileInput.files[0]; // Get the uploaded file
+            const downloadLink = document.getElementById('downloadLink');
+
+            // Create a URL for the uploaded file
+            const url = URL.createObjectURL(uploadedFile);
+            
+            convert"fileInput" to application;
+            // Set up the download link
+            downloadLink.href = url;
+            downloadLink.download = 'MyApp.custom'; // Suggests the filename for downloading
+            downloadLink.textContent = 'Click here to download ' + uploadedFile.name;
+
+            // Show the download section
+            document.getElementById('downloadSection').style.display = 'block';
+        }
+
+        function downloadApp() {
+            if (!uploadedFile) {
+                alert('No file uploaded yet.');
+                return;
+            }
+
+            // Create a temporary link element for downloading
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(uploadedFile); // Use the same URL for downloading
+            link.download = 'MyApp.custom'; // Name of the downloaded app file
+
+            // Append the link to the body (required for Firefox)
+            document.body.appendChild(link);
+
+            // Programmatically click the link to trigger the download
+            link.click();
+
+            // Clean up by removing the link
+            document.body.removeChild(link);
+        }
+    </script>
+
+</body>
+</html>
