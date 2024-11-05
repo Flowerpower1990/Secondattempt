@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple AI Trainer App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .hidden { display: none; }
+        button { margin-top: 10px; }
+        .container { margin-bottom: 20px; }
+        #responseArea, #aiResponse { margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Simple AI Trainer App</h1>
+
+    <!-- Input Section -->
+    <div class="container" id="inputSection">
+        <h2>Input Text</h2>
+        <input type="text" id="userInput" placeholder="Type your input here">
+        <button onclick="submitInput()">Submit</button>
+        
+        <div id="responseArea">
+            <h3>Your Input:</h3>
+            <div id="userInputs"></div>
+            <h3>AI Response:</h3>
+            <div id="aiResponse"></div>
+        </div>
+    </div>
+
+    <!-- Configuration Section -->
+    <div class="container hidden" id="configSection">
+        <h2>Configuration</h2>
+        <label for="configInput">Modify Configuration:</label>
+        <input type="text" id="configInput" placeholder="Enter new config value">
+        <button onclick="modifyConfig()">Update Config</button>
+        <div id="configResponse"></div>
+        
+        <!-- Viewing current configuration -->
+        <h3>Current Configuration:</h3>
+        <pre id="currentConfig">Default Config Value</pre>
+    </div>
+
+    <!-- Activity Log Section -->
+    <div class="container hidden" id="activitySection">
+        <h2>Activity Log</h2>
+        <div id="activityLog"></div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <button onclick="toggleSection('inputSection')">Input Section</button>
+    <button onclick="toggleSection('configSection')">Configuration Section</button>
+    <button onclick="toggleSection('activitySection')">Activity Log Section</button>
+
+    <script>
+        let currentConfigValue = "Default Config Value"; // Store current config
+
+        // Function to handle input submission
+        function submitInput() {
+            const userInput = document.getElementById('userInput').value;
+            const userInputs = document.getElementById('userInputs');
+            const aiResponse = document.getElementById('aiResponse');
+
+            // Display user input
+            userInputs.innerHTML += `<p>${userInput}</p>`;
+            
+            // Simulate an AI response (you can replace this with actual logic)
+            aiResponse.innerHTML = `<p>AI Response to "${userInput}": This is a simulated response.</p>`;
+            
+            // Clear input field
+            document.getElementById('userInput').value = ''; 
+            logActivity(`Submitted Input: ${userInput}`);
+        }
+
+        // Function to modify configuration
+        function modifyConfig() {
+            const configValue = document.getElementById('configInput').value;
+            const configResponse = document.getElementById('configResponse');
+            
+            // Update current config value
+            currentConfigValue = configValue;
+            configResponse.innerHTML = `<p>Configuration updated to: ${configValue}</p>`;
+            document.getElementById('currentConfig').innerText = currentConfigValue; // Display updated config
+            document.getElementById('configInput').value = ''; // Clear input field
+            logActivity(`Configuration modified: ${configValue}`);
+        }
+
+        // Function to log activity
+        function logActivity(activity) {
+            const activityLog = document.getElementById('activityLog');
+            activityLog.innerHTML += `<p>${activity}</p>`;
+        }
+
+        // Function to toggle visibility of sections
+        function toggleSection(sectionId) {
+            const sections = ['inputSection', 'configSection', 'activitySection'];
+            sections.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
